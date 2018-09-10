@@ -1,0 +1,58 @@
+.Main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-image: radial-gradient(to bottom left, indianRed, orange, gold, mediumSeaGreen, darkCyan, indigo);
+}
+
+section {
+  width: 30%;
+  min-height: 30vh;
+  border: 1px solid;
+  border-color: radial-gradient(to bottom left, indianRed, orange, gold, mediumSeaGreen, darkCyan, indigo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid white;
+}
+
+section:hover {
+  background-color: white;
+  opacity: 0.3;
+}
+
+@keyframes spinner {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+.Board-header {
+  display: flex;
+  width: 100%;
+  min-height: 10vh;
+  justify-content: center;
+  align-items: center;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 5vh;
+  letter-spacing: 4vw;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  /* animation: spinner infinite 30s linear; */
+}
+
+.buttonSpace {
+  display: flex;
+  min-height: 10vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  font-size: 2vh;
+}
