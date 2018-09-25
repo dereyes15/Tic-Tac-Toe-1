@@ -9,77 +9,65 @@ class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      squaresArray: ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-      turn: "p1"
+      squaresArray: ["", "", "", "", "", "", "", "", ""],
+      counter: 0
     }
   }
 
-  turnSwitcher = (boolean) => {
-    let newTurn = this.state.turn
+  placeMarker = (index, currentPlayer) => {
+      let { squaresArray, counter } = this.state
 
-    if (boolean) {
+      squaresArray[ index ] = currentPlayer
 
-      return
-    } else if (newTurn === "p1") {
-      newTurn = "p2"
       this.setState({
-        turn: newTurn
+          squaresArray: squaresArray,
+          counter: counter + 1
       })
-    } else {
-      newTurn = "p1"
-      this.setState({
-        turn: newTurn
-      })
-    }
-    console.log(this.state.turn);
+
   }
+
+
 
   refreshPage = () => {
     window.location.reload()
   }
 
   render() {
+    let { squaresArray, counter } = this.state
+    let { placeMarker, refreshPage } = this
+
     let squares = this.state.squaresArray.map((square, index) => {
-      console.log(squares)
       return ( <
-        Square value = {
+        Square
+        index = {
           index
         }
-        refreshPage = {
-          this.refreshPage
-        }
-        turnSwitcher = {
-          this.turnSwitcher
-        }
-        turn = {
-          this.state.turn
+        counter = {
+          counter
         }
         squaresArray = {
-          this.state.squaresArray
+          squaresArray
+        }
+        placeMarker = {
+          placeMarker
         }
         />
       )
     })
 
-    return ( <
-        main className = "Main" >
-        <
-        header className = "Board-header" > TIC - TAC - TOE < /header> {
-        squares
-      }
+    return (
+      <main className = "Main" >
+        <header className = "Board-header"> TIC - TAC - TOE </header>
 
-      <
-      div className = "buttonSpace" >
-      <
-      button type = "button"
-    onClick = {
-        this.refreshPage
-      } > < span > New Game < /span> </button >
-      <
-      /div>
+        {squares}
 
-      <
-      /main>
+        <div className = "buttonSpace" >
+          <button type = "button" onClick = { refreshPage } >
+           <span> New Game </span>
+          </button>
+        </div>
+
+      </main>
 
 
   );
