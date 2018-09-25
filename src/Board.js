@@ -9,7 +9,8 @@ class Board extends Component {
     super(props)
     this.state = {
       squaresArray: ["", "", "", "", "", "", "", "", ""],
-      counter: 0
+      counter: 0,
+      gameOver: false
     }
   }
 
@@ -36,6 +37,61 @@ class Board extends Component {
 
   }
 
+  //this function takes in a particular marker, as an argument, and checks if that player has won the game already
+  winCondition = (marker) => {
+    //destructuring this.state.squaresArray and this.state.counter as variables in the scope of this function
+    let { squaresArray, counter, gameOver } = this.state
+    let { refreshPage } = this
+
+    //declaring a list of arrays that contain the indices of the winning combinations for tic-tac-toe
+    let winningIdices =
+    [ 0, 1, 2 ],
+    [ 3, 4, 5 ],
+    [ 6, 7, 8 ],
+    [ 0, 3, 6 ],
+    [ 1, 4, 7 ],
+    [ 2, 5, 8 ],
+    [ 0, 4, 8 ],
+    [ 2, 4, 6 ]
+
+    //declaring the variable isThereAWinner
+    //setting this variable to a boolean value
+      //in one specific winningIndex, it works through the .every()
+    let isThereAWinner = winningIdices.some(winningIndex => {
+        //for each item in one winningIndex array, check if the marker at a specfic index in the squaresArray equals to the marker
+        //return a boolen for each winningIndex array
+        return winningIndex.every( index => {
+            return squaresArray[index] === marker
+        })
+    })
+
+    //if isThereAWinner is true, alert who has won
+    if( isThereAWinner ) {
+        announce(`${marker} Wins!`)
+    }
+    //else if the counter is 8, then it's a tied game
+    else if(counter === 8) {
+        announce("It's a tie! Both worthy opponents!")
+    }
+    //otherwise, do nothing
+
+    //if gameOver is true, refresh the page to restart the game
+    if( gameOver ) {
+        setTimeout(function() {
+            refreshPage()
+        }, 150)
+    }
+  }
+
+  //this function takes in a string, as an argument, and alerts that message
+  announce = (message) => {
+    alert(message)
+
+    //sets the state of gameOver to true, ending the
+    this.setState(
+        gameOver: true
+    )
+  }
 
   //this function refreshes the page
     //it is used mostly in the "New Game" Button and after a player has won
@@ -45,27 +101,38 @@ class Board extends Component {
 
   render() {
     //destructures this.state.squaresArray and this.state.counter into variables
-    let { squaresArray, counter } = this.state
+    let { squaresArray, counter, gameOver } = this.state
     //destructures the placeMarker() and refreshPage() function
-    let { placeMarker, refreshPage } = this
+    let { placeMarker, refreshPage, winCondition, announce } = this
 
     //maps through squaresArray
       //for every index of the squaresArray, render the Square component with the following props:
-        //the index of the squaresArray (to be used in placeMarker()), this.state.counter, squaresArray, placeMarker()
+        //the index of the squaresArray (to be used in placeMarker()), squaresArray, counter, gameOver, placeMarker(), winCondition(), announce()
     let squares = this.state.squaresArray.map((square, index) => {
       return ( <
         Square
+
+        //these are the props being passed to the Square component
         index = {
           index
-        }
-        counter = {
-          counter
         }
         squaresArray = {
           squaresArray
         }
+        counter = {
+          counter
+        }
+        gameOver = {
+          gameOver
+        }
         placeMarker = {
           placeMarker
+        }
+        winCondition = {
+          winCondition
+        }
+        announce = {
+          announce
         }
         />
       )
