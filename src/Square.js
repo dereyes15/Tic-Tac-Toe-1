@@ -1,7 +1,7 @@
 import React, {
   Component
 } from 'react';
-import './Square.css';
+import './Square.css'
 
 class Square extends Component {
 
@@ -10,9 +10,9 @@ class Square extends Component {
     let currentMarker
 
     if(counter % 2) {
-      current = "🦄"
+      currentMarker = "🦄"
     } else {
-      current = "🦆"
+      currentMarker = "🦆"
     }
 
     return currentMarker
@@ -21,9 +21,10 @@ class Square extends Component {
   handleClick = () => {
     let { index, squaresArray, counter, gameOver, placeMarker, winCondition } = this.props
     let { determineTurn } = this
+    let currentMarker
 
     if( squaresArray[index] === "" ) {
-      let currentMarker = determineTurn()
+      currentMarker = determineTurn()
     }
 
     if(!gameOver){
@@ -39,13 +40,13 @@ class Square extends Component {
   render() {
     let { handleClick } = this
     let { squaresArray, index } = this.props
-    
+
     return (
-      <div onClick = { handleClick }>
+      <section onClick = { handleClick }>
         { squaresArray[index] }
-      </div>
+      </section>
     );
   }
 }
 
-export default Square;
+export default Square

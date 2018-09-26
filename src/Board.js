@@ -41,18 +41,20 @@ class Board extends Component {
   winCondition = (marker) => {
     //destructuring this.state.squaresArray and this.state.counter as variables in the scope of this function
     let { squaresArray, counter, gameOver } = this.state
-    let { refreshPage } = this
+    let { announce, refreshPage } = this
 
     //declaring a list of arrays that contain the indices of the winning combinations for tic-tac-toe
     let winningIdices =
-    [ 0, 1, 2 ],
-    [ 3, 4, 5 ],
-    [ 6, 7, 8 ],
-    [ 0, 3, 6 ],
-    [ 1, 4, 7 ],
-    [ 2, 5, 8 ],
-    [ 0, 4, 8 ],
-    [ 2, 4, 6 ]
+    [
+        [ 0, 1, 2 ],
+        [ 3, 4, 5 ],
+        [ 6, 7, 8 ],
+        [ 0, 3, 6 ],
+        [ 1, 4, 7 ],
+        [ 2, 5, 8 ],
+        [ 0, 4, 8 ],
+        [ 2, 4, 6 ]
+    ]
 
     //declaring the variable isThereAWinner
     //setting this variable to a boolean value
@@ -85,6 +87,8 @@ class Board extends Component {
 
   //this function takes in a string, as an argument, and alerts that message
   announce = (message) => {
+    let { gameOver } = this.state
+
     alert(message)
 
     //sets the state of gameOver to true, ending the
@@ -113,6 +117,9 @@ class Board extends Component {
         Square
 
         //these are the props being passed to the Square component
+        key = {
+          index
+        }
         index = {
           index
         }
@@ -135,6 +142,8 @@ class Board extends Component {
         />
       )
     })
+
+    console.log(squares);
 
     return (
       <main className = "Main" >
