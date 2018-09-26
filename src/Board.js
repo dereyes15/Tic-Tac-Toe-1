@@ -102,12 +102,12 @@ class Board extends Component {
   render() {
     //destructures this.state.squaresArray and this.state.counter into variables
     let { squaresArray, counter, gameOver } = this.state
-    //destructures the placeMarker() and refreshPage() function
-    let { placeMarker, refreshPage, winCondition, announce } = this
+    //destructures the placeMarker(), refreshPage() and winCondition() function
+    let { placeMarker, refreshPage, winCondition } = this
 
     //maps through squaresArray
       //for every index of the squaresArray, render the Square component with the following props:
-        //the index of the squaresArray (to be used in placeMarker()), squaresArray, counter, gameOver, placeMarker(), winCondition(), announce()
+        //the index of the squaresArray (to be used in placeMarker()), squaresArray, counter, gameOver, placeMarker(), winCondition()
     let squares = this.state.squaresArray.map((square, index) => {
       return ( <
         Square
@@ -131,9 +131,7 @@ class Board extends Component {
         winCondition = {
           winCondition
         }
-        announce = {
-          announce
-        }
+
         />
       )
     })

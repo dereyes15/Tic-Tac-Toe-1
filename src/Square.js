@@ -3,70 +3,47 @@ import React, {
 } from 'react';
 import './Square.css';
 
-var winChecker = []
-
 class Square extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      toggle: " ",
-      amIFull: false,
+
+  determineTurn = () => {
+    let { counter } = this.props
+    let currentMarker
+
+    if(counter % 2) {
+      current = "🦄"
+    } else {
+      current = "🦆"
     }
+
+    return currentMarker
   }
 
-  handleToggle = (e) => {
-    let marker = this.state.toggle
-    let {
-      amIFull
-    } = this.state
-    let {
-      turn
-    } = this.props
-    let winningArray = winChecker
+  handleClick = () => {
+    let { index, squaresArray, counter, gameOver, placeMarker, winCondition } = this.props
+    let { determineTurn } = this
 
-
-    if (marker === "🦄" || marker === "🦆") {
-      return
-
-    } else if (turn === "p1") {
-      marker = "🦄"
-      winningArray[this.props.value] = marker
-      amIFull = true
-      this.setState({
-        toggle: marker,
-        winchecker: winningArray,
-        amIFull: amIFull
-      })
-
-    } else if (turn === "p2") {
-      marker = "🦆"
-      winningArray[this.props.value] = marker
-      amIFull = true
-      this.setState({
-        toggle: marker,
-        winchecker: winningArray,
-        amIFull: amIFull
-      })
-
+    if( squaresArray[index] === "" ) {
+      let currentMarker = determineTurn()
     }
-  }
 
+    if(!gameOver){
+      placeMarker( index, currentMarker )
+    }
 
-  clicked = (e) => {
-    this.handleToggle()
-    this.props.turnSwitcher(this.state.amIFull)
-    console.log(this.winCondition(winChecker))
+    if( counter > 4 ) {
+      winCondition( currentMarker )
+    }
 
   }
 
   render() {
-    return ( <
-      section onClick = {
-        this.clicked
-      } > {
-        this.state.toggle
-      } <
-      /section>
+    let { handleClick } = this
+    let { squaresArray, index } = this.props
+    
+    return (
+      <div onClick = { handleClick }>
+        { squaresArray[index] }
+      </div>
     );
   }
 }
