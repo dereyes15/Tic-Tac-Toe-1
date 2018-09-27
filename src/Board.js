@@ -41,7 +41,7 @@ class Board extends Component {
   winCondition = (marker) => {
     //destructuring this.state.squaresArray and this.state.counter as variables in the scope of this function
     let { squaresArray, counter, gameOver } = this.state
-    let { announce, refreshPage } = this
+    let { autoResetBoard } = this
 
     //declaring a list of arrays that contain the indices of the winning combinations for tic-tac-toe
     let winningIdices =
@@ -67,34 +67,41 @@ class Board extends Component {
         })
     })
 
-    //if isThereAWinner is true, alert who has won
-    if( isThereAWinner ) {
-        announce(`${marker} Wins!`)
-    }
-    //else if the counter is 8, then it's a tied game
-    else if(counter === 8) {
-        announce("It's a tie! Both worthy opponents!")
-    }
-    //otherwise, do nothing
-
-    //if gameOver is true, refresh the page to restart the game
-    if( gameOver ) {
-        setTimeout(function() {
-            refreshPage()
-        }, 150)
-    }
+    autoResetBoard(isThereAWinner, marker)
   }
 
   //this function takes in a string, as an argument, and alerts that message
   announce = (message) => {
     let { gameOver } = this.state
+    gameOver = true
 
     alert(message)
 
     //sets the state of gameOver to true, ending the
-    this.setState(
-        gameOver: true
-    )
+    this.setState({
+        gameOver: gameOver,
+        counter: 0
+    })
+  }
+
+  autoResetBoard = (isThereAWinner, marker) => {
+    let { counter } = this.state
+    let { announce, refreshPage } = this
+
+    //if isThereAWinner is true, alert who has won
+    if( isThereAWinner ) {
+        announce(`${marker} Wins!`)
+        setTimeout(function() {
+          refreshPage()
+        }, 150)
+    }
+    //else if the counter is 8, then it's a tied game
+    else if(counter === 8) {
+        announce("It's a tie! Both worthy opponents!")
+        setTimeout(function() {
+          refreshPage()
+        }, 150)
+    }
   }
 
   //this function refreshes the page
@@ -143,7 +150,6 @@ class Board extends Component {
       )
     })
 
-    console.log(squares);
 
     return (
       <main className = "Main" >
