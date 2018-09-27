@@ -31,7 +31,7 @@ class Square extends Component {
       placeMarker( index, currentMarker )
     }
 
-    if( counter > 4 ) {
+    if( counter > 3 ) {
       winCondition( currentMarker )
     }
 
