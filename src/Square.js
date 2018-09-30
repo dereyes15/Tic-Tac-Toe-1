@@ -23,12 +23,13 @@ class Square extends Component {
     let { determineTurn } = this
     let currentMarker
 
+    console.log(squaresArray[index]);
     if( squaresArray[index] === "" ) {
       currentMarker = determineTurn()
-    }
 
-    if(!gameOver){
-      placeMarker( index, currentMarker )
+      if(!gameOver){
+        placeMarker( index, currentMarker )
+      }
     }
 
     if( counter > 3 ) {
